@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Médica</title>
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+    <h1>Consulta de Especialidades Médicas</h1>
+
+    <form method="POST">
+
+        <input
+            type="text"
+            name="especialidade"
+            id="especialidade"
+            placeholder="Digite uma especialidade..."
+            required
+        >
+
+        <button type="submit">
+            Buscar
+        </button>
+
+    </form>
+
+    {% if erro %}
+        <div class="erro">
+            {{ erro }}
+        </div>
+    {% endif %}
+
+    {% if resultados %}
+
+        <h2>Resultados para "{{ especialidade }}"</h2>
+
+        <div class="cards">
+
+            {% for medico in resultados %}
+
+                <div class="card">
+
+                    <h3>{{ medico.nome }}</h3>
+
+                    <p>
+                        <strong>CRM:</strong>
+                        {{ medico.crm }}
+                    </p>
+
+                    <p>
+                        <strong>Planos:</strong>
+                    </p>
+
+                    <ul>
+                        {% for plano in medico.planos %}
+                            <li>{{ plano }}</li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+
+</body>
+</html>
